@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Concurrent;
 
 namespace CK.DB.SqlCKTrait
 {
@@ -41,6 +42,19 @@ namespace CK.DB.SqlCKTrait
         /// Gets the database <see cref="Context"/> identifier.
         /// </summary>
         public int CKTraitContextId { get; }
+
+        /// <summary>
+        /// Gets or sets whether <see cref="DBCKTrait"/> must be cached.
+        /// This is not yet implemented.
+        /// Setting this to true initailizes an internal <see cref="ConcurrentDictionary{TKey, TValue}"/>
+        /// of <see cref="CKTrait"/> to <see cref="DBCKTrait"/> and uses it to avoid database calls
+        /// as much as possible.
+        /// </summary>
+        public bool EnableTraitCache
+        {
+            get => false;
+            set => throw new NotImplementedException( "This has to be done." );
+        }
 
         /// <summary>
         /// Maps the <paramref name="trait"/> (that must be in this <see cref="Context"/>).
