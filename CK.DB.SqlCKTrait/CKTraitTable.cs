@@ -12,7 +12,7 @@ namespace CK.DB.SqlCKTrait
     [SqlTable( "tCKTrait", Package = typeof( Package ) )]
     [Versions( "1.0.0" )]
     [SqlObjectItem( "fCKTraitProperSubSet, fCKTraitProperSuperSet" )]
-    [SqlObjectItem( "fCKTraitSubSet" )]
+    [SqlObjectItem( "fCKTraitSubSet, fCKTraitSuperSet" )]
     public abstract partial class CKTraitTable : SqlTable
     {
         void StObjConstruct( CKTraitContextTable c, CKTraitWordTable words )
