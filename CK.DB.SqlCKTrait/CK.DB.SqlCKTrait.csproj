@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CK.SqlServer.Setup.Model" Version="7.0.2" />
+    <PackageReference Include="CK.SqlServer.Setup.Model" Version="7.1.0" />
   </ItemGroup>
 
   <ItemGroup>
