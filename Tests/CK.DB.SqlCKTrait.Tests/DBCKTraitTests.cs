@@ -35,7 +35,7 @@ namespace CK.DB.SqlCKTrait.Tests
         [Test]
         public void CKTraitContext_registration_does_not_allow_homonyms()
         {
-            var p = TestHelper.StObjMap.Default.Obtain<Package>();
+            var p = TestHelper.StObjMap.StObjs.Obtain<Package>();
             using( var ctx = new SqlStandardCallContext() )
             {
                 var dbC = p.CKTraitContextTable.RegisterContext( ctx, 1, Context1 );
@@ -48,7 +48,7 @@ namespace CK.DB.SqlCKTrait.Tests
         [Test]
         public async Task CKTraitContext_registration_does_not_allow_homonyms_Async()
         {
-            var p = TestHelper.StObjMap.Default.Obtain<Package>();
+            var p = TestHelper.StObjMap.StObjs.Obtain<Package>();
             using( var ctx = new SqlStandardCallContext() )
             {
                 var dbC = await p.CKTraitContextTable.RegisterContextAsync( ctx, 1, Context1 );
@@ -61,7 +61,7 @@ namespace CK.DB.SqlCKTrait.Tests
         [Test]
         public async Task creating_and_removing_traits_mapping()
         {
-            var p = TestHelper.StObjMap.Default.Obtain<Package>();
+            var p = TestHelper.StObjMap.StObjs.Obtain<Package>();
             using( var ctx = new SqlStandardCallContext() )
             {
                 var dbC = await p.CKTraitContextTable.RegisterContextAsync( ctx, 1, Context1 );
@@ -112,7 +112,7 @@ namespace CK.DB.SqlCKTrait.Tests
         [Test]
         public async Task trait_context_is_checked_to_avoid_mismatch()
         {
-            var p = TestHelper.StObjMap.Default.Obtain<Package>();
+            var p = TestHelper.StObjMap.StObjs.Obtain<Package>();
             using( var ctx = new SqlStandardCallContext() )
             {
                 var dbC1 = await p.CKTraitContextTable.RegisterContextAsync( ctx, 1, Context1 );

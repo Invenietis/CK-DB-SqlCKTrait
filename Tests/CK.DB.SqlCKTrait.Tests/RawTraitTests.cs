@@ -19,7 +19,7 @@ namespace CK.DB.SqlCKTrait.Tests
         [Test]
         public void proper_subsets_and_supersets()
         {
-            var p = TestHelper.StObjMap.Default.Obtain<Package>();
+            var p = TestHelper.StObjMap.StObjs.Obtain<Package>();
             using( var ctx = new SqlStandardCallContext() )
             {
                 int contextId = p.CKTraitContextTable.RegisterContext( ctx, 1, "RawTest", ',' );
@@ -69,15 +69,13 @@ namespace CK.DB.SqlCKTrait.Tests
                     }
 
                 }
-
-
             }
         }
 
         [Test]
         public void subsets_and_supersets()
         {
-            var p = TestHelper.StObjMap.Default.Obtain<Package>();
+            var p = TestHelper.StObjMap.StObjs.Obtain<Package>();
             using( var ctx = new SqlStandardCallContext() )
             {
                 int contextId = p.CKTraitContextTable.RegisterContext( ctx, 1, "RawTest", ',' );
