@@ -9,7 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CK.DB.SqlCKTrait\CK.DB.SqlCKTrait.csproj" />
-    <PackageReference Include="CK.DB.Tests.NUnit" Version="10.0.1--0024-develop" />
+    <PackageReference Include="CK.DB.Tests.NUnit" Version="10.0.1--0025-develop" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
     <PackageReference Include="NUnitLite" Version="3.10.1" />
