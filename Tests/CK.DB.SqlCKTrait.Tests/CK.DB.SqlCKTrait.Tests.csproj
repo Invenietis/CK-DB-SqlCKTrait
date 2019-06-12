@@ -3,16 +3,12 @@
   <PropertyGroup>
     <TargetFrameworks>net461;netcoreapp2.1</TargetFrameworks>
     <Description>This package contains tests for CK.DB.SqlCKTrait (uses CK.DB.Tests.NUnit).</Description>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(TargetFramework)' != 'net461' ">
     <OutputType>Exe</OutputType>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CK.DB.SqlCKTrait\CK.DB.SqlCKTrait.csproj" />
-    <PackageReference Include="CK.DB.Tests.NUnit" Version="10.1.0" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
-    <PackageReference Include="NUnitLite" Version="3.11.0" />
+    <PackageReference Include="CK.DB.Tests.NUnit" Version="0.0.0--02bk71u-local" />
+    <PackageReference Include="NUnitLite" Version="3.12.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
