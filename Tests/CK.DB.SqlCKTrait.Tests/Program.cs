@@ -1,4 +1,3 @@
-#if !NET461
 using CK.Monitoring;
 using NUnit.Common;
 using NUnitLite;
@@ -16,5 +15,3 @@ namespace CK.DB.SqlCKTrait.Tests
         }
     }
 }
-
-#endif
