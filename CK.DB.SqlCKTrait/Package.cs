@@ -1,5 +1,4 @@
-using CK.Setup;
-using CK.SqlServer.Setup;
+using CK.Core;
 
 namespace CK.DB.SqlCKTrait
 {
@@ -13,13 +12,13 @@ namespace CK.DB.SqlCKTrait
         /// <summary>
         /// Gets the <see cref="CKTraitContextTable"/>.
         /// </summary>
-        [InjectContract]
+        [InjectObject]
         public CKTraitContextTable CKTraitContextTable { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="CKTraitTable"/>.
         /// </summary>
-        [InjectContract]
+        [InjectObject]
         public CKTraitTable CKTraitTable { get; private set; }
     }
 }

@@ -1,7 +1,6 @@
 using CK.Core;
 using CK.Setup;
 using CK.SqlServer;
-using CK.SqlServer.Setup;
 using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
