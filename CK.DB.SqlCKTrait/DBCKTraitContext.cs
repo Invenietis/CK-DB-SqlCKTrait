@@ -13,12 +13,12 @@ namespace CK.DB.SqlCKTrait
     /// </summary>
     public class DBCKTraitContext
     {
-        internal DBCKTraitContext( Package p, CKTagContext context, int contextId )
+        internal DBCKTraitContext( Package p, CKTraitContext context, int contextId )
         {
             Package = p;
             Context = context;
             CKTraitContextId = contextId;
-            EmptyTrait = new DBCKTrait( 0, context.EmptyTag );
+            EmptyTrait = new DBCKTrait( 0, context.EmptyTrait );
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace CK.DB.SqlCKTrait
         /// <summary>
         /// Gets the <see cref="CKTraitContext"/>.
         /// </summary>
-        public CKTagContext Context { get; }
+        public CKTraitContext Context { get; }
 
         /// <summary>
         /// Gets the database <see cref="Context"/> identifier.
@@ -62,7 +62,7 @@ namespace CK.DB.SqlCKTrait
         /// <param name="actorId">The current actor identifier.</param>
         /// <param name="trait">The trait to register.</param>
         /// <returns>The DBCKTrait.</returns>
-        public DBCKTrait FindOrCreate( ISqlCallContext c, int actorId, CKTag trait )
+        public DBCKTrait FindOrCreate( ISqlCallContext c, int actorId, CKTrait trait )
         {
             if( trait == null ) throw new ArgumentNullException( nameof( trait ) );
             if( trait.Context != Context ) throw new ArgumentException( "Trait context mismatch.", nameof( trait ) );
@@ -78,7 +78,7 @@ namespace CK.DB.SqlCKTrait
         /// <param name="actorId">The current actor identifier.</param>
         /// <param name="trait">The trait to register.</param>
         /// <returns>The DBCKTrait.</returns>
-        public async Task<DBCKTrait> FindOrCreateAsync( ISqlCallContext c, int actorId, CKTag trait )
+        public async Task<DBCKTrait> FindOrCreateAsync( ISqlCallContext c, int actorId, CKTrait trait )
         {
             if( trait == null ) throw new ArgumentNullException( nameof( trait ) );
             if( trait.Context != Context ) throw new ArgumentException( "Trait context mismatch.", nameof( trait ) );
@@ -95,7 +95,7 @@ namespace CK.DB.SqlCKTrait
         /// <param name="actorId">The current actor identifier.</param>
         /// <param name="trait">The trait to find.</param>
         /// <returns>The DBCKTrait or the EmptyTrait.</returns>
-        public DBCKTrait FindOnly( ISqlCallContext c, int actorId, CKTag trait )
+        public DBCKTrait FindOnly( ISqlCallContext c, int actorId, CKTrait trait )
         {
             if( trait == null ) throw new ArgumentNullException( nameof( trait ) );
             if( trait.Context != Context ) throw new ArgumentException( "Trait context mismatch.", nameof( trait ) );
@@ -114,7 +114,7 @@ namespace CK.DB.SqlCKTrait
         /// <param name="actorId">The current actor identifier.</param>
         /// <param name="trait">The trait to register.</param>
         /// <returns>The CKTrait identifier.</returns>
-        public async Task<DBCKTrait> FindOnlyAsync( ISqlCallContext c, int actorId, CKTag trait )
+        public async Task<DBCKTrait> FindOnlyAsync( ISqlCallContext c, int actorId, CKTrait trait )
         {
             if( trait == null ) throw new ArgumentNullException( nameof( trait ) );
             if( trait.Context != Context ) throw new ArgumentException( "Trait context mismatch.", nameof( trait ) );
@@ -132,7 +132,7 @@ namespace CK.DB.SqlCKTrait
         /// <param name="c">The call context to use.</param>
         /// <param name="actorId">The current actor identifier.</param>
         /// <param name="trait">The trait to remove.</param>
-        public void RemoveByTraitName( ISqlCallContext c, int actorId, CKTag trait )
+        public void RemoveByTraitName( ISqlCallContext c, int actorId, CKTrait trait )
         {
             if( trait == null ) throw new ArgumentNullException( nameof( trait ) );
             if( trait.Context != Context ) throw new ArgumentException( "Trait context mismatch.", nameof( trait ) );
@@ -146,7 +146,7 @@ namespace CK.DB.SqlCKTrait
         /// <param name="c">The call context to use.</param>
         /// <param name="actorId">The current actor identifier.</param>
         /// <param name="trait">The trait to remove.</param>
-        public Task RemoveByTraitNameAsync( ISqlCallContext c, int actorId, CKTag trait )
+        public Task RemoveByTraitNameAsync( ISqlCallContext c, int actorId, CKTrait trait )
         {
             if( trait == null ) throw new ArgumentNullException( nameof( trait ) );
             if( trait.Context != Context ) throw new ArgumentException( "Trait context mismatch.", nameof( trait ) );
