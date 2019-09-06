@@ -32,21 +32,21 @@ namespace CK.DB.SqlCKTrait
         }
 
         /// <summary>
-        /// Registers a <see cref="CKTraitContext"/>. Finds or it creates it and handle separator
+        /// Registers a <see cref="CKTagContext"/>. Finds or it creates it and handle separator
         /// change as needed.
         /// </summary>
         /// <param name="c">The call context to use.</param>
         /// <param name="actorId">The current actor identifier.</param>
         /// <param name="traitContext">The context to register.</param>
         /// <returns>The mapped context.</returns>
-        public DBCKTraitContext RegisterContext( ISqlCallContext c, int actorId, CKTraitContext traitContext )
+        public DBCKTraitContext RegisterContext( ISqlCallContext c, int actorId, CKTagContext traitContext )
         {
             if( traitContext == null ) throw new ArgumentNullException( nameof( traitContext ) );
             var db = _cache.GetOrAdd( traitContext.Name, name =>
             {
                 return new DBCKTraitContext( _package, traitContext, RegisterContext( c, actorId, name, traitContext.Separator ) );
             } );
-            return CheckNameUnicity( traitContext, db );
+            return db;
         }
 
         /// <summary>
@@ -57,23 +57,13 @@ namespace CK.DB.SqlCKTrait
         /// <param name="actorId">The current actor identifier.</param>
         /// <param name="traitContext">The context to register.</param>
         /// <returns>The mapped context.</returns>
-        public async Task<DBCKTraitContext> RegisterContextAsync( ISqlCallContext c, int actorId, CKTraitContext traitContext )
+        public async Task<DBCKTraitContext> RegisterContextAsync( ISqlCallContext c, int actorId, CKTagContext traitContext )
         {
-            if( traitContext == null ) throw new ArgumentNullException( nameof( traitContext ) );
             if( !_cache.TryGetValue( traitContext.Name, out var db ) )
             {
                 int id = await RegisterContextAsync( c, actorId, traitContext.Name, traitContext.Separator );
                 db = new DBCKTraitContext( _package, traitContext, id );
                 _cache.TryAdd( traitContext.Name, db );
-            }
-            return CheckNameUnicity( traitContext, db );
-        }
-
-        static DBCKTraitContext CheckNameUnicity( CKTraitContext registered, DBCKTraitContext db )
-        {
-            if( db.Context != registered )
-            {
-                throw new ArgumentException( $"CKTraitContext must have a unique name. '{registered.Name}' identifies 2 different contexts.", nameof( registered ) );
             }
             return db;
         }
