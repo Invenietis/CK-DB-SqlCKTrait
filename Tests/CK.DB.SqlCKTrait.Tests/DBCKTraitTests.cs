@@ -12,10 +12,8 @@ namespace CK.DB.SqlCKTrait.Tests
     [TestFixture]
     public class DBCKTraitTests
     {
-        static readonly CKTraitContext Context1 = new CKTraitContext( "Context1", ',' );
-        static readonly CKTraitContext Context1Clash = new CKTraitContext( "Context1", ',' );
-
-        static readonly CKTraitContext Context2 = new CKTraitContext( "Context2", ',' );
+        static readonly CKTraitContext Context1 = CKTraitContext.Create( "Context1", ',' );
+        static readonly CKTraitContext Context2 = CKTraitContext.Create( "Context2", ',' );
 
         static readonly CKTrait t1MongoDbSqlServerNetCoreApp20 = Context1.FindOrCreate( "MongoDb, SqlServer, NetCoreApp20" );
         static readonly CKTrait t1MongoDbNetCoreApp20 = Context1.FindOrCreate( "MongoDb, NetCoreApp20" );
@@ -30,33 +28,6 @@ namespace CK.DB.SqlCKTrait.Tests
         static readonly CKTrait t2SqlServer = Context2.FindOrCreate( "SqlServer" );
         static readonly CKTrait t2NetCoreApp20 = Context2.FindOrCreate( "NetCoreApp20" );
         static readonly CKTrait t2NetFramework = Context2.FindOrCreate( "NetFramework" );
-
-
-        [Test]
-        public void CKTraitContext_registration_does_not_allow_homonyms()
-        {
-            var p = TestHelper.StObjMap.StObjs.Obtain<Package>();
-            using( var ctx = new SqlStandardCallContext() )
-            {
-                var dbC = p.CKTraitContextTable.RegisterContext( ctx, 1, Context1 );
-                p.CKTraitContextTable
-                    .Invoking( t => t.RegisterContext( ctx, 1, Context1Clash ) )
-                    .Should().Throw<ArgumentException>().Where( d => d.Message.StartsWith( "CKTraitContext must have a unique name." ) );
-            }
-        }
-
-        [Test]
-        public async Task CKTraitContext_registration_does_not_allow_homonyms_Async()
-        {
-            var p = TestHelper.StObjMap.StObjs.Obtain<Package>();
-            using( var ctx = new SqlStandardCallContext() )
-            {
-                var dbC = await p.CKTraitContextTable.RegisterContextAsync( ctx, 1, Context1 );
-                p.CKTraitContextTable
-                    .Awaiting( t => t.RegisterContextAsync( ctx, 1, Context1Clash ) )
-                    .Should().Throw<ArgumentException>().Where( d => d.Message.StartsWith( "CKTraitContext must have a unique name." ) );
-            }
-        }
 
         [Test]
         public async Task creating_and_removing_traits_mapping()
