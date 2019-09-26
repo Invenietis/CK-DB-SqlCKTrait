@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CK.DB.SqlCKTrait.Tests
+namespace DBSetup
 {
     [TestFixture]
     public class DBSetup : CK.DB.Tests.DBSetup
