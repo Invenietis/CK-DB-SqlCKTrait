@@ -64,8 +64,8 @@ namespace CK.DB.SqlCKTrait.Tests
                 await dbC.RemoveAsync( ctx, 1, tDBMongoDbSqlServerNetCoreApp20 );
                 await dbC.RemoveAsync( ctx, 1, tDBSqlServer );
 
-                dbC.Awaiting( c => c.RemoveAsync( ctx, 1, tDBMongoDb ) ).Should().Throw<SqlDetailedException>();
-                dbC.Awaiting( c => c.RemoveAsync( ctx, 1, tDBNetCoreApp20 ) ).Should().Throw<SqlDetailedException>();
+                await dbC.Awaiting( c => c.RemoveAsync( ctx, 1, tDBMongoDb ) ).Should().ThrowAsync<SqlDetailedException>();
+                await dbC.Awaiting( c => c.RemoveAsync( ctx, 1, tDBNetCoreApp20 ) ).Should().ThrowAsync<SqlDetailedException>();
 
                 await dbC.RemoveAsync( ctx, 1, tDBMongoDbNetCoreApp20 );
 
@@ -99,12 +99,12 @@ namespace CK.DB.SqlCKTrait.Tests
                 tIn2.CKTraitId.Should().NotBe( 0 );
                 tIn1.CKTraitId.Should().NotBe( tIn2.CKTraitId );
 
-                dbC1.Awaiting( c => c.FindOrCreateAsync( ctx, 1, t2MongoDb ) )
-                    .Should().Throw<ArgumentException>()
+                await dbC1.Awaiting( c => c.FindOrCreateAsync( ctx, 1, t2MongoDb ) )
+                    .Should().ThrowAsync<ArgumentException>()
                     .Where( e => e.Message.StartsWith( "Trait context mismatch." ) );
 
-                dbC2.Awaiting( c => c.FindOrCreateAsync( ctx, 1, t1MongoDb ) )
-                    .Should().Throw<ArgumentException>()
+                await dbC2.Awaiting( c => c.FindOrCreateAsync( ctx, 1, t1MongoDb ) )
+                    .Should().ThrowAsync<ArgumentException>()
                     .Where( e => e.Message.StartsWith( "Trait context mismatch." ) );
 
             }
