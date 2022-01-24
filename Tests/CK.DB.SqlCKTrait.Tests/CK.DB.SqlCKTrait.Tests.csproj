@@ -9,6 +9,6 @@
     <ProjectReference Include="..\..\CK.DB.SqlCKTrait\CK.DB.SqlCKTrait.csproj" />
     <PackageReference Include="CK.DB.Tests.NUnit" Version="19.0.0-r07" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.1.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
   </ItemGroup>
 </Project>
