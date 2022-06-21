@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using CK.Core;
 using FluentAssertions;
 using static CK.Testing.DBSetupTestHelper;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Data;
 
 namespace CK.DB.SqlCKTrait.Tests
