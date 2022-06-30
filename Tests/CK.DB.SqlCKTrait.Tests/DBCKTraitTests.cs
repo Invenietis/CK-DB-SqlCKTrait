@@ -30,7 +30,7 @@ namespace CK.DB.SqlCKTrait.Tests
         static readonly CKTrait t2NetFramework = Context2.FindOrCreate( "NetFramework" );
 
         [Test]
-        public async Task creating_and_removing_traits_mapping()
+        public async Task creating_and_removing_traits_mapping_Async()
         {
             var p = TestHelper.StObjMap.StObjs.Obtain<Package>();
             using( var ctx = new SqlStandardCallContext() )
@@ -81,7 +81,7 @@ namespace CK.DB.SqlCKTrait.Tests
         }
 
         [Test]
-        public async Task trait_context_is_checked_to_avoid_mismatch()
+        public async Task trait_context_is_checked_to_avoid_mismatch_Async()
         {
             var p = TestHelper.StObjMap.StObjs.Obtain<Package>();
             using( var ctx = new SqlStandardCallContext() )
