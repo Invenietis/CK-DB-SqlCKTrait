@@ -1,11 +1,11 @@
 using CK.Core;
 using CK.SqlServer;
+using CK.Testing;
 using FluentAssertions;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using static CK.Testing.DBSetupTestHelper;
+using static CK.Testing.MonitorTestHelper;
 
 namespace CK.DB.SqlCKTrait.Tests
 {
@@ -32,7 +32,7 @@ namespace CK.DB.SqlCKTrait.Tests
         [Test]
         public async Task creating_and_removing_traits_mapping_Async()
         {
-            var p = TestHelper.StObjMap.StObjs.Obtain<Package>();
+            var p = SharedEngine.Map.StObjs.Obtain<Package>();
             using( var ctx = new SqlStandardCallContext() )
             {
                 var dbC = await p.CKTraitContextTable.RegisterContextAsync( ctx, 1, Context1 );
@@ -83,7 +83,7 @@ namespace CK.DB.SqlCKTrait.Tests
         [Test]
         public async Task trait_context_is_checked_to_avoid_mismatch_Async()
         {
-            var p = TestHelper.StObjMap.StObjs.Obtain<Package>();
+            var p = SharedEngine.Map.StObjs.Obtain<Package>();
             using( var ctx = new SqlStandardCallContext() )
             {
                 var dbC1 = await p.CKTraitContextTable.RegisterContextAsync( ctx, 1, Context1 );

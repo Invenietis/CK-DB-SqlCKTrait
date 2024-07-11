@@ -1,15 +1,13 @@
 using CK.SqlServer;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CK.Core;
 using FluentAssertions;
-using static CK.Testing.DBSetupTestHelper;
+using static CK.Testing.MonitorTestHelper;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using CK.Testing;
 
 namespace CK.DB.SqlCKTrait.Tests
 {
@@ -19,7 +17,7 @@ namespace CK.DB.SqlCKTrait.Tests
         [Test]
         public void proper_subsets_and_supersets()
         {
-            var p = TestHelper.StObjMap.StObjs.Obtain<Package>();
+            var p = SharedEngine.Map.StObjs.Obtain<Package>();
             using( var ctx = new SqlStandardCallContext() )
             {
                 int contextId = p.CKTraitContextTable.RegisterContext( ctx, 1, "RawTest", ',' );
@@ -75,7 +73,7 @@ namespace CK.DB.SqlCKTrait.Tests
         [Test]
         public void subsets_and_supersets()
         {
-            var p = TestHelper.StObjMap.StObjs.Obtain<Package>();
+            var p = SharedEngine.Map.StObjs.Obtain<Package>();
             using( var ctx = new SqlStandardCallContext() )
             {
                 int contextId = p.CKTraitContextTable.RegisterContext( ctx, 1, "RawTest", ',' );
