@@ -3,7 +3,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using CK.Core;
-using FluentAssertions;
+using Shouldly;
 using static CK.Testing.MonitorTestHelper;
 using Microsoft.Data.SqlClient;
 using System.Data;
@@ -28,7 +28,7 @@ public class RawTraitTests
             int[] digitsId = Enumerable.Range( 0, 10 )
                                 .Select( i => p.CKTraitTable.FindOrCreate( ctx, 1, contextId, findOnly: true, traitName: i.ToString() ) )
                                 .ToArray();
-            digitsId.Should().Contain( id => id > 0 );
+            digitsId.ShouldContain( id => id > 0 );
 
             using( var cmdSubSet = new SqlCommand( "select CKTraitId from CK.fCKTraitProperSubSet( @Id )" ) )
             using( var cmdSuperSet = new SqlCommand( "select CKTraitId from CK.fCKTraitProperSuperSet( @Id )" ) )
@@ -38,15 +38,15 @@ public class RawTraitTests
 
                 pSuperSet.Value = evenDigitId;
                 ctx[p].ExecuteReader( cmdSuperSet, row => row.GetInt32( 0 ) )
-                      .Should().BeEquivalentTo( new[] { digitId } );
+                      .ShouldBe( new[] { digitId } );
 
                 pSuperSet.Value = oddDigitId;
                 ctx[p].ExecuteReader( cmdSuperSet, row => row.GetInt32( 0 ) )
-                      .Should().BeEquivalentTo( new[] { digitId } );
+                      .ShouldBe( new[] { digitId } );
 
                 pSubSet.Value = digitId;
                 ctx[p].ExecuteReader( cmdSubSet, row => row.GetInt32( 0 ) )
-                      .Should().BeEquivalentTo( new[] { evenDigitId, oddDigitId }.Concat( digitsId ) );
+                      .ShouldBe( [evenDigitId, oddDigitId, .. digitsId], ignoreOrder: true );
 
                 for( int idx = 0; idx < 10; ++idx )
                 {
@@ -55,15 +55,15 @@ public class RawTraitTests
                     List<int> superSets = ctx[p].ExecuteReader( cmdSuperSet, row => row.GetInt32( 0 ) );
                     if( idx % 2 == 0 )
                     {
-                        superSets.Should().BeEquivalentTo( new[] { evenDigitId, digitId } );
+                        superSets.ShouldBe( [evenDigitId, digitId], ignoreOrder: true );
                     }
                     else
                     {
-                        superSets.Should().BeEquivalentTo( new[] { oddDigitId, digitId } );
+                        superSets.ShouldBe( [oddDigitId, digitId], ignoreOrder: true );
                     }
                     // Since these are atomic trait, there is no SubSet.
                     pSubSet.Value = atomId;
-                    ctx[p].ExecuteReader( cmdSubSet, row => row.GetInt32( 0 ) ).Should().BeEmpty();
+                    ctx[p].ExecuteReader( cmdSubSet, row => row.GetInt32( 0 ) ).ShouldBeEmpty();
                 }
 
             }
@@ -84,7 +84,7 @@ public class RawTraitTests
             int[] digitsId = Enumerable.Range( 0, 10 )
                                 .Select( i => p.CKTraitTable.FindOrCreate( ctx, 1, contextId, findOnly: true, traitName: i.ToString() ) )
                                 .ToArray();
-            digitsId.Should().Contain( id => id > 0 );
+            digitsId.ShouldContain( id => id > 0 );
 
             using( var cmdSubSet = new SqlCommand( "select CKTraitId from CK.fCKTraitSubSet( @Id )" ) )
             using( var cmdSuperSet = new SqlCommand( "select CKTraitId from CK.fCKTraitSuperSet( @Id )" ) )
@@ -94,15 +94,15 @@ public class RawTraitTests
 
                 pSuperSet.Value = evenDigitId;
                 ctx[p].ExecuteReader( cmdSuperSet, row => row.GetInt32( 0 ) )
-                      .Should().BeEquivalentTo( new[] { digitId, evenDigitId } );
+                      .ShouldBe( new[] { digitId, evenDigitId } );
 
                 pSuperSet.Value = oddDigitId;
                 ctx[p].ExecuteReader( cmdSuperSet, row => row.GetInt32( 0 ) )
-                      .Should().BeEquivalentTo( new[] { digitId, oddDigitId } );
+                      .ShouldBe( new[] { digitId, oddDigitId } );
 
                 pSubSet.Value = digitId;
                 ctx[p].ExecuteReader( cmdSubSet, row => row.GetInt32( 0 ) )
-                      .Should().BeEquivalentTo( new[] { evenDigitId, oddDigitId, digitId }.Concat( digitsId ) );
+                      .ShouldBe( [evenDigitId, oddDigitId, digitId, ..digitsId], ignoreOrder: true );
 
                 for( int idx = 0; idx < 10; ++idx )
                 {
@@ -111,15 +111,15 @@ public class RawTraitTests
                     List<int> superSets = ctx[p].ExecuteReader( cmdSuperSet, row => row.GetInt32( 0 ) );
                     if( idx % 2 == 0 )
                     {
-                        superSets.Should().BeEquivalentTo( new[] { atomId, evenDigitId, digitId } );
+                        superSets.ShouldBe( [atomId, evenDigitId, digitId], ignoreOrder: true );
                     }
                     else
                     {
-                        superSets.Should().BeEquivalentTo( new[] { atomId, oddDigitId, digitId } );
+                        superSets.ShouldBe( [atomId, oddDigitId, digitId], ignoreOrder: true );
                     }
                     // Since these are atomic trait, they are necessaily alone.
                     pSubSet.Value = atomId;
-                    ctx[p].ExecuteReader( cmdSubSet, row => row.GetInt32( 0 ) ).Should().BeEquivalentTo( new[] { atomId } );
+                    ctx[p].ExecuteReader( cmdSubSet, row => row.GetInt32( 0 ) ).ShouldBe( [atomId] );
                 }
 
             }
